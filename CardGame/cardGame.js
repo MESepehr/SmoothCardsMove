@@ -94,6 +94,8 @@ var cardGame = function(PIXI,Width=550,Height=400){
         }
     }
 
+    var intervalId = setInterval(clicked,1000);
+
     return this;
 }
 
