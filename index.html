@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project 1</title>
+    <title>Cards</title>
 </head>
 <script src="./pixi.min.js"></script>
-<script src="./CardGame/cardGame3.js"></script>
+<script src="./CardGame/cardGame.js"></script>
 <body>
+    <h2>Click on Cards to make them move!</h2>
     <div id="game-area"></div>
     <script type="text/javascript">
         const w = 550 ;
@@ -40,7 +41,11 @@
 
         //Game codes ↓
 
-        var textField = new PIXI.Text();
+        let style = new PIXI.TextStyle({
+        fontSize: 16,
+        fill: "white",
+        });
+        var textField = new PIXI.Text('',style);
         app.stage.addChild(textField);
         textField.y = h-textField.height;
         
@@ -73,5 +78,14 @@
         margin:auto;
         margin-top:50px;
     }
+
+    h2{
+        width:100%;
+        color:#fff;
+        text-align: center;
+        padding-top:20px;
+        user-select: none;
+    }
+    
 </style>
 </html>

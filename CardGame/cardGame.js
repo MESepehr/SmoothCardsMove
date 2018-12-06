@@ -1,6 +1,8 @@
 const   cardW = 100,
         cardH = 140 ;
 
+const totalCards = 144 ;
+
 var cardGame = function(PIXI,Width=550,Height=400){
     const cardURLs = [
         "./img/card.png",
@@ -11,12 +13,14 @@ var cardGame = function(PIXI,Width=550,Height=400){
     ] ;
     var me = this.me = new PIXI.Sprite();
 
-    const totalCards = 144 ;
+    /**distance between each card */
     const deltaY = 1.5 ;
 
 
+    /**card list margin from top of the stage */
     const margin = 20 ;
 
+    /**Que 1 positions */
     var place1X = cardW/2+margin,
         place1Y = totalCards*deltaY+(Height-totalCards*deltaY)/2 ;
     
@@ -38,10 +42,6 @@ var cardGame = function(PIXI,Width=550,Height=400){
 
     function setupGame()
     {
-        
-        
-        
-        //cardSprite.rotation = Math.PI/8;
         for(var i = 0 ; i<totalCards ; i++)
         {
             let cardTexture = PIXI.loader.resources[cardURLs[Math.floor(cardURLs.length*Math.random())]].texture ;
@@ -65,7 +65,6 @@ var cardGame = function(PIXI,Width=550,Height=400){
 
     this.enterFrame = function()
     {
-        //alert('frame"0')
        for(var i = 0 ; i<cardList.length ; i++)
        {
             cardList[i].enterFrame();
@@ -86,6 +85,7 @@ var cardGame = function(PIXI,Width=550,Height=400){
         topItemOnQue1--;
         if(topItemOnQue1==0)
         {
+            //Make the que reverse to make it float in other side to
             cardList = cardList.reverse();
             topItemOnQue1 = totalCards ;
             var cashedQue = que1 ;
@@ -120,7 +120,7 @@ var card = function(PIXI=null,texture=null)
     me.height = cardH ;
     me.anchor.x = .5;
     me.anchor.y = .8;
-    var r0 = me.rotation = (Math.random()-.5)/10;
+    var r0 = me.rotation = 0;//(Math.random()-.5)/10;
 
     var targetX = 0,
         targetY = 0 ;
@@ -163,18 +163,12 @@ var card = function(PIXI=null,texture=null)
         let dx = deltaX/frames ;
         let dy = deltaY/frames ;
 
-        //let mX = dx, mY = dy ;
-
         for(var i = 0 ; i<frames-1 ; i++)
         {
             let smoothPrecent = (Math.cos(i/frames*Math.PI)-1)/-2;
-            console.log(smoothPrecent);
             xPath.push(cX+dx*smoothPrecent*frames);
             yPath.push(cY+dy*smoothPrecent*frames);
             rPath.push(r0+(Math.sin(Math.PI*2*(i/frames)))/8);
-
-            //mX+=dx ;
-            //mY+=dy ;
         }
 
         xPath.push(targetX);
@@ -185,8 +179,6 @@ var card = function(PIXI=null,texture=null)
 
     this.enterFrame = function()
     {
-        //me.x += (targetX-me.x)/20;
-        //me.y += (targetY-me.y)/20;
         if(xPath.length>0)
         {
             me.x = xPath[pathFrame];
