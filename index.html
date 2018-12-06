@@ -8,12 +8,48 @@
 </head>
 <script src="./pixi.min.js"></script>
 <body>
+    <div id="game-area"></div>
     <script type="text/javascript">
+        const w = 550 ;
+        const h = 400 ;
+
+
+
         let type = "WebGL"
         if(!PIXI.utils.isWebGLSupported()){
           type = "canvas"
         }
         PIXI.utils.sayHello(type);
+
+        let app = new PIXI.Application({
+            width:550,
+            height:400,
+            antialias:true,
+            transparent:false,
+            resolution:1
+        });
+
+        app.renderer.view.style.position = "absolute";
+        app.renderer.view.style.display = "block";
+        //app.renderer.autoResize = true;
+        //app.renderer.resize(window.innerWidth, window.innerHeight);
+
+        document.getElementById("game-area").appendChild(app.view);
+        document.getElementById("game-area").style.width = w+"px";
       </script>
 </body>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    body{
+        width:100%;
+    }
+
+    #game-area{
+        margin:auto;
+        margin-top:50px;
+    }
+</style>
 </html>
