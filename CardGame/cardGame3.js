@@ -11,7 +11,7 @@ var cardGame = function(PIXI,Width=550,Height=400){
     ] ;
     var me = this.me = new PIXI.Sprite();
 
-    const totalCards = 14 ;
+    const totalCards = 144 ;
     const deltaY = 1.5 ;
 
 
@@ -109,6 +109,9 @@ var cardGame = function(PIXI,Width=550,Height=400){
 
 var card = function(PIXI=null,texture=null)
 {
+
+    const frames = 120 ;
+
     var me = null ;
     if(PIXI==null)
         return;
@@ -116,12 +119,19 @@ var card = function(PIXI=null,texture=null)
     me.width = cardW ;
     me.height = cardH ;
     me.anchor.x = .5;
-    me.anchor.y = .5;
-    me.rotation = (Math.random()-.5)/10;
+    me.anchor.y = .8;
+    var r0 = me.rotation = (Math.random()-.5)/10;
 
     var targetX = 0,
         targetY = 0 ;
 
+    
+
+    var xPath = [] ;
+    var yPath = [] ;
+    var rPath = [] ;
+
+    var pathFrame = 0 ;
 
 
     this.setX = function(value)
@@ -136,15 +146,59 @@ var card = function(PIXI=null,texture=null)
 
     this.move = function(x,y)
     {
+        xPath = [] ;
+        yPath = [] ;
+        pathFrame = 0 ;
+
+        let cX = me.x ;
+        let cY = me.y ;
+
         targetX = x ;
         targetY = y ;
+
+
+        let deltaX = targetX - cX ;
+        let deltaY = targetY - cY ;
+
+        let dx = deltaX/frames ;
+        let dy = deltaY/frames ;
+
+        let mX = dx, mY = dy ;
+
+        for(var i = 0 ; i<frames-1 ; i++)
+        {
+            xPath.push(cX+mX);
+            yPath.push(cY+mY);
+            rPath.push((Math.sin(Math.PI*2*(i/frames)))/8);
+
+            mX+=dx ;
+            mY+=dy ;
+        }
+
+        xPath.push(targetX);
+        yPath.push(targetY);
+        rPath.push(r0);
     }
 
 
     this.enterFrame = function()
     {
-        me.x += (targetX-me.x)/20;
-        me.y += (targetY-me.y)/20;
+        //me.x += (targetX-me.x)/20;
+        //me.y += (targetY-me.y)/20;
+        if(xPath.length>0)
+        {
+            me.x = xPath[pathFrame];
+            me.y = yPath[pathFrame];
+            me.rotation = rPath[pathFrame];
+            pathFrame++;
+
+            if(pathFrame>=xPath.length)
+            {
+                xPath = [];
+                yPath = [] ;
+                rPath = [] ;
+            }
+        }
     }
 
    return this ;

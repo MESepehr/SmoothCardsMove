@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project 0</title>
+    <title>Project 1</title>
 </head>
 <script src="./pixi.min.js"></script>
-<script src="./CardGame/cardGame.js"></script>
+<script src="./CardGame/cardGame3.js"></script>
 <body>
     <div id="game-area"></div>
     <script type="text/javascript">
         const w = 550 ;
-        const h = 400 ;
+        const h = 500 ;
 
 
         var type = "WebGL";
@@ -22,9 +22,9 @@
 
         PIXI.utils.sayHello(type);
         var app = new PIXI.Application({
-            width:550,
-            height:400,
-            antialias:true,
+            width:w,
+            height:h,
+            antialias:false,
             transparent:true,
             resolution:1
         });
@@ -39,12 +39,22 @@
 
 
         //Game codes ↓
-        
-        
-        cardGameSprite = cardGame(PIXI);
-        app.stage.addChild(cardGameSprite.me);
 
+        var textField = new PIXI.Text();
+        app.stage.addChild(textField);
+        textField.y = h-textField.height;
+        
+        
+        cardGameSprite = cardGame(PIXI,w,h);
+        app.stage.addChild(cardGameSprite.me);
+        var fr = 60 ;
+
+        var lastTime = new Date().getTime();
         app.ticker.add(()=>{
+            let Ctime = new Date().getTime();
+            fr += (1000/(Ctime-lastTime)-fr)/10;
+            textField.text = Math.round(fr)+" FPS";
+            lastTime = Ctime ;
             cardGameSprite.enterFrame()
         });
     </script>
