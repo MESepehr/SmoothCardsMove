@@ -122,7 +122,7 @@ var card = function(PIXI=null,texture=null)
     me.height = cardH ;
     me.anchor.x = .5;
     me.anchor.y = .8;
-    var r0 = me.rotation = 0;//(Math.random()-.5)/10;
+    var r0 = me.rotation = (Math.random()-.5)/10;
 
     var targetX = 0,
         targetY = 0 ;
