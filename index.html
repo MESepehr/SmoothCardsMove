@@ -7,6 +7,7 @@
     <title>Project 0</title>
 </head>
 <script src="./pixi.min.js"></script>
+<script src="./CardGame/cardGame.js"></script>
 <body>
     <div id="game-area"></div>
     <script type="text/javascript">
@@ -21,7 +22,7 @@
         }
         PIXI.utils.sayHello(type);
 
-        let app = new PIXI.Application({
+        var app = new PIXI.Application({
             width:550,
             height:400,
             antialias:true,
@@ -36,6 +37,14 @@
 
         document.getElementById("game-area").appendChild(app.view);
         document.getElementById("game-area").style.width = w+"px";
+
+
+        //Game codes ↓
+        
+        
+        cardGameSprite = cardGame(PIXI,app.stage);
+        app.stage.addChild(cardGameSprite);
+
       </script>
 </body>
 <style>
