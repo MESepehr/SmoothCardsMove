@@ -2,7 +2,13 @@ const   cardW = 100,
         cardH = 140 ;
 
 var cardGame = function(PIXI,Width=550,Height=400){
-    const cardURL = "./img/card.png" ;
+    const cardURLs = [
+        "./img/card.png",
+        "./img/card2.png",
+        "./img/card3.png",
+        "./img/card4.png",
+        "./img/card5.png"
+    ] ;
     var me = this.me = new PIXI.Sprite();
 
     const totalCards = 14 ;
@@ -25,20 +31,20 @@ var cardGame = function(PIXI,Width=550,Height=400){
     que2 = [] ;
 
     PIXI.loader
-    .add([
-        cardURL,
-    ])
+    .add(
+        cardURLs
+    )
     .load(setupGame);
 
     function setupGame()
     {
-        var cardTexture = PIXI.loader.resources[cardURL].texture ;
         
-
-
+        
+        
         //cardSprite.rotation = Math.PI/8;
         for(var i = 0 ; i<totalCards ; i++)
         {
+            let cardTexture = PIXI.loader.resources[cardURLs[Math.floor(cardURLs.length*Math.random())]].texture ;
             var cardItem = new card(PIXI,cardTexture);
             cardList.push(cardItem);
             topItemOnQue1++ ;
