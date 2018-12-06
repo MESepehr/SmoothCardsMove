@@ -43,7 +43,11 @@
         
         
         cardGameSprite = cardGame(PIXI,app.stage);
-        app.stage.addChild(cardGameSprite);
+        app.stage.addChild(cardGameSprite.me);
+
+        app.ticker.add(()=>{
+            cardGameSprite.enterFrame()
+        });
 
       </script>
 </body>

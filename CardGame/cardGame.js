@@ -1,6 +1,7 @@
 var cardGame = function(PIXI){
-    var cardURL = "./img/card.png" ;
-    var Me = new PIXI.Sprite();
+    const cardURL = "./img/card.png" ;
+    this.me = new PIXI.Sprite();
+    var cardSprite = null ;
 
     PIXI.loader
     .add([
@@ -10,11 +11,25 @@ var cardGame = function(PIXI){
 
     function setupGame()
     {
-        var cardSprite = new PIXI.Sprite(
+        cardSprite = new PIXI.Sprite(
             PIXI.loader.resources[cardURL].texture
         );
 
-        Me.addChild(cardSprite);
+        me.addChild(cardSprite);
+
+        cardSprite.anchor.x = .5;
+        cardSprite.anchor.y = .5;
+        //cardSprite.rotation = Math.PI/8;
     }
-    return Me;
+
+    this.enterFrame = function()
+    {
+        //alert('frame"0')
+       if(cardSprite)
+       {
+            //cardSprite.rotation += .01 ;
+       } 
+    }
+
+    return this;
 }
