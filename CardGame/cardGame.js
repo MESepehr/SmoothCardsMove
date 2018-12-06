@@ -3,7 +3,7 @@ const   cardW = 100,
 
 var cardGame = function(PIXI,Width=550,Height=400){
     const cardURL = "./img/card.png" ;
-    this.me = new PIXI.Sprite();
+    var me = this.me = new PIXI.Sprite();
 
     const totalCards = 144 ;
     const deltaY = 1.5 ;
@@ -13,9 +13,16 @@ var cardGame = function(PIXI,Width=550,Height=400){
 
     var place1X = cardW/2+margin,
         place1Y = totalCards*deltaY+(Height-totalCards*deltaY)/2 ;
+    
+    var place2X = Width - place1X;
 
     var cardList = [new card()] ;
     cardList = [] ;
+    var topItemOnQue1 = 0 ;
+    var que1 = [{x:0,y:0}];
+    var que2 = [{x:0,y:0}];
+    que1 = [] ;
+    que2 = [] ;
 
     PIXI.loader
     .add([
@@ -34,9 +41,19 @@ var cardGame = function(PIXI,Width=550,Height=400){
         {
             var cardItem = new card(PIXI,cardTexture);
             cardList.push(cardItem);
+            topItemOnQue1++ ;
             me.addChild(cardItem.me);
-            cardItem.setX(place1X+Math.random()*2);
-            cardItem.setY(place1Y-i*deltaY);
+
+
+            let x = place1X+Math.random()*2 ;
+            let x2 = place2X-Math.random()*2 ;
+            let y = place1Y-i*deltaY;
+
+            que1.push({x:x,y:y});
+            que2.push({x:x2,y:y});
+
+            cardItem.setX(x);
+            cardItem.setY(y);
         }
     }
 
@@ -47,6 +64,20 @@ var cardGame = function(PIXI,Width=550,Height=400){
        {
             cardList[i].enterFrame();
        }
+    }
+
+
+    me.interactive = true;
+    me.buttonMode = true;
+
+
+    me.on('pointerdown',clicked)
+    
+    function clicked()
+    {
+        me.addChild(cardList[topItemOnQue1-1].me);
+        cardList[topItemOnQue1-1].move(que2[totalCards-topItemOnQue1].x,que2[totalCards-topItemOnQue1].y);
+        topItemOnQue1--;
     }
 
     return this;
@@ -74,22 +105,32 @@ var card = function(PIXI=null,texture=null)
     me.anchor.y = .5;
     me.rotation = (Math.random()-.5)/10;
 
+    var targetX = 0,
+        targetY = 0 ;
+
 
 
     this.setX = function(value)
     {
-        me.x = value ;
+        targetX = me.x = value ;
     }
 
     this.setY = function(value)
     {
-        me.y = value ;
+        targetY = me.y = value ;
+    }
+
+    this.move = function(x,y)
+    {
+        targetX = x ;
+        targetY = y ;
     }
 
 
     this.enterFrame = function()
     {
-
+        me.x += (targetX-me.x)/5;
+        me.y += (targetY-me.y)/5;
     }
 
    return this ;
