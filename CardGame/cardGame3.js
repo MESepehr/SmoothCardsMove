@@ -163,16 +163,18 @@ var card = function(PIXI=null,texture=null)
         let dx = deltaX/frames ;
         let dy = deltaY/frames ;
 
-        let mX = dx, mY = dy ;
+        //let mX = dx, mY = dy ;
 
         for(var i = 0 ; i<frames-1 ; i++)
         {
-            xPath.push(cX+mX);
-            yPath.push(cY+mY);
-            rPath.push((Math.sin(Math.PI*2*(i/frames)))/8);
+            let smoothPrecent = (Math.cos(i/frames*Math.PI)-1)/-2;
+            console.log(smoothPrecent);
+            xPath.push(cX+dx*smoothPrecent*frames);
+            yPath.push(cY+dy*smoothPrecent*frames);
+            rPath.push(r0+(Math.sin(Math.PI*2*(i/frames)))/8);
 
-            mX+=dx ;
-            mY+=dy ;
+            //mX+=dx ;
+            //mY+=dy ;
         }
 
         xPath.push(targetX);
