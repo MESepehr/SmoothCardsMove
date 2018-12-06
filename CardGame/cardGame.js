@@ -1,6 +1,18 @@
-var cardGame = function(PIXI){
+const   cardW = 100,
+        cardH = 140 ;
+
+var cardGame = function(PIXI,Width=550,Height=400){
     const cardURL = "./img/card.png" ;
     this.me = new PIXI.Sprite();
+
+    const totalCards = 144 ;
+    const deltaY = 1.5 ;
+
+
+    const margin = 20 ;
+
+    var place1X = cardW/2+margin,
+        place1Y = totalCards*deltaY+(Height-totalCards*deltaY)/2 ;
 
     var cardList = [new card()] ;
     cardList = [] ;
@@ -18,18 +30,13 @@ var cardGame = function(PIXI){
 
 
         //cardSprite.rotation = Math.PI/8;
-        for(var i = 0 ; i<144 ; i++)
+        for(var i = 0 ; i<totalCards ; i++)
         {
             var cardItem = new card(PIXI,cardTexture);
             cardList.push(cardItem);
             me.addChild(cardItem.me);
-            cardItem.me.x = i ;
-            cardItem.me.y = i ;
-            cardItem.me.rotation = i*0.01;
-            cardItem.me.width = 100 ;
-            cardItem.me.height = 200;
-            cardItem.me.anchor.x = .5;
-            cardItem.me.anchor.y = .5;
+            cardItem.setX(place1X+Math.random()*2);
+            cardItem.setY(place1Y-i*deltaY);
         }
     }
 
@@ -38,7 +45,7 @@ var cardGame = function(PIXI){
         //alert('frame"0')
        for(var i = 0 ; i<cardList.length ; i++)
        {
-        cardList[i].me.rotation += 0.01 ;
+            cardList[i].enterFrame();
        }
     }
 
@@ -48,13 +55,42 @@ var cardGame = function(PIXI){
 
 
 
+
+
+
+
+
+
+
 var card = function(PIXI=null,texture=null)
 {
+    var me = null ;
     if(PIXI==null)
         return;
-    this.me = new PIXI.Sprite(texture);
-    this.me.anchor.x = .5;
-    this.me.anchor.y = .5;
+    me = this.me = new PIXI.Sprite(texture);
+    me.width = cardW ;
+    me.height = cardH ;
+    me.anchor.x = .5;
+    me.anchor.y = .5;
+    me.rotation = (Math.random()-.5)/10;
+
+
+
+    this.setX = function(value)
+    {
+        me.x = value ;
+    }
+
+    this.setY = function(value)
+    {
+        me.y = value ;
+    }
+
+
+    this.enterFrame = function()
+    {
+
+    }
 
    return this ;
 }
