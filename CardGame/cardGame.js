@@ -5,7 +5,7 @@ var cardGame = function(PIXI,Width=550,Height=400){
     const cardURL = "./img/card.png" ;
     var me = this.me = new PIXI.Sprite();
 
-    const totalCards = 144 ;
+    const totalCards = 14 ;
     const deltaY = 1.5 ;
 
 
@@ -78,6 +78,14 @@ var cardGame = function(PIXI,Width=550,Height=400){
         me.addChild(cardList[topItemOnQue1-1].me);
         cardList[topItemOnQue1-1].move(que2[totalCards-topItemOnQue1].x,que2[totalCards-topItemOnQue1].y);
         topItemOnQue1--;
+        if(topItemOnQue1==0)
+        {
+            cardList = cardList.reverse();
+            topItemOnQue1 = totalCards ;
+            var cashedQue = que1 ;
+            que1 = que2 ;
+            que2 = cashedQue ;
+        }
     }
 
     return this;
@@ -129,8 +137,8 @@ var card = function(PIXI=null,texture=null)
 
     this.enterFrame = function()
     {
-        me.x += (targetX-me.x)/5;
-        me.y += (targetY-me.y)/5;
+        me.x += (targetX-me.x)/20;
+        me.y += (targetY-me.y)/20;
     }
 
    return this ;
