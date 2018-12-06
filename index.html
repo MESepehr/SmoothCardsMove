@@ -15,18 +15,17 @@
         const h = 400 ;
 
 
-
-        let type = "WebGL"
+        var type = "WebGL";
         if(!PIXI.utils.isWebGLSupported()){
           type = "canvas"
         }
-        PIXI.utils.sayHello(type);
 
+        PIXI.utils.sayHello(type);
         var app = new PIXI.Application({
             width:550,
             height:400,
-            antialias:true,
-            transparent:false,
+            antialias:false,
+            transparent:true,
             resolution:1
         });
 
@@ -48,8 +47,7 @@
         app.ticker.add(()=>{
             cardGameSprite.enterFrame()
         });
-
-      </script>
+    </script>
 </body>
 <style>
     *{

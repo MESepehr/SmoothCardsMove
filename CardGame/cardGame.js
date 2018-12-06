@@ -1,7 +1,9 @@
 var cardGame = function(PIXI){
     const cardURL = "./img/card.png" ;
     this.me = new PIXI.Sprite();
-    var cardSprite = null ;
+
+    var cardList = [new card()] ;
+    cardList = [] ;
 
     PIXI.loader
     .add([
@@ -11,25 +13,48 @@ var cardGame = function(PIXI){
 
     function setupGame()
     {
-        cardSprite = new PIXI.Sprite(
-            PIXI.loader.resources[cardURL].texture
-        );
+        var cardTexture = PIXI.loader.resources[cardURL].texture ;
+        
 
-        me.addChild(cardSprite);
 
-        cardSprite.anchor.x = .5;
-        cardSprite.anchor.y = .5;
         //cardSprite.rotation = Math.PI/8;
+        for(var i = 0 ; i<144 ; i++)
+        {
+            var cardItem = new card(PIXI,cardTexture);
+            cardList.push(cardItem);
+            me.addChild(cardItem.me);
+            cardItem.me.x = i ;
+            cardItem.me.y = i ;
+            cardItem.me.rotation = i*0.01;
+            cardItem.me.width = 100 ;
+            cardItem.me.height = 200;
+            cardItem.me.anchor.x = .5;
+            cardItem.me.anchor.y = .5;
+        }
     }
 
     this.enterFrame = function()
     {
         //alert('frame"0')
-       if(cardSprite)
+       for(var i = 0 ; i<cardList.length ; i++)
        {
-            //cardSprite.rotation += .01 ;
-       } 
+        cardList[i].me.rotation += 0.01 ;
+       }
     }
 
     return this;
+}
+
+
+
+
+var card = function(PIXI=null,texture=null)
+{
+    if(PIXI==null)
+        return;
+    this.me = new PIXI.Sprite(texture);
+    this.me.anchor.x = .5;
+    this.me.anchor.y = .5;
+
+   return this ;
 }
