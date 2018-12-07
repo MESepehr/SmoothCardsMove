@@ -12,10 +12,11 @@
     <h2>Click on Cards to make them move!</h2>
     <div id="game-area"></div>
     <script type="text/javascript">
-        const w = 550 ;
-        const h = 500 ;
+        var w = 550 ;
+        var h = 500 ;
         alert("Hi");
 
+        w = Math.min(w,window.innerWidth);
 
         var type = "WebGL";
         if(!PIXI.utils.isWebGLSupported()){
@@ -31,7 +32,7 @@
             resolution:1
         });
 
-        /*app.renderer.view.style.position = "absolute";
+        app.renderer.view.style.position = "absolute";
         app.renderer.view.style.display = "block";
         //app.renderer.autoResize = true;
         //app.renderer.resize(window.innerWidth, window.innerHeight);
@@ -40,7 +41,7 @@
         document.getElementById("game-area").style.width = w+"px";
 
 
-        //Game codes ↓
+        /*//Game codes ↓
 
         let style = new PIXI.TextStyle({
         fontSize: 16,
