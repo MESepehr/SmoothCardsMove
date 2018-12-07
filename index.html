@@ -14,7 +14,6 @@
     <script type="text/javascript">
         var w = 550 ;
         var h = 500 ;
-        alert("Hi");
 
         w = Math.min(w,window.innerWidth);
 
@@ -41,9 +40,9 @@
         document.getElementById("game-area").style.width = w+"px";
 
 
-        /*//Game codes ↓
+        //Game codes ↓
 
-        let style = new PIXI.TextStyle({
+        var style = new PIXI.TextStyle({
         fontSize: 16,
         fill: "white",
         });
@@ -57,12 +56,12 @@
 
         var lastTime = new Date().getTime();
         app.ticker.add(()=>{
-            let Ctime = new Date().getTime();
+            var Ctime = new Date().getTime();
             fr += (1000/(Ctime-lastTime)-fr)/10;
             textField.text = Math.round(fr)+" FPS";
             lastTime = Ctime ;
             cardGameSprite.enterFrame()
-        });*/
+        });
     </script>
 </body>
 <style>

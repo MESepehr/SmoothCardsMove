@@ -44,16 +44,16 @@ var cardGame = function(PIXI,Width=550,Height=400){
     {
         for(var i = 0 ; i<totalCards ; i++)
         {
-            let cardTexture = PIXI.loader.resources[cardURLs[Math.floor(cardURLs.length*Math.random())]].texture ;
+            var cardTexture = PIXI.loader.resources[cardURLs[Math.floor(cardURLs.length*Math.random())]].texture ;
             var cardItem = new card(PIXI,cardTexture);
             cardList.push(cardItem);
             topItemOnQue1++ ;
             me.addChild(cardItem.me);
 
 
-            let x = place1X+Math.random()*2 ;
-            let x2 = place2X-Math.random()*2 ;
-            let y = place1Y-i*deltaY;
+            var x = place1X+Math.random()*2 ;
+            var x2 = place2X-Math.random()*2 ;
+            var y = place1Y-i*deltaY;
 
             que1.push({x:x,y:y});
             que2.push({x:x2,y:y});
@@ -152,22 +152,22 @@ var card = function(PIXI=null,texture=null)
         yPath = [] ;
         pathFrame = 0 ;
 
-        let cX = me.x ;
-        let cY = me.y ;
+        var cX = me.x ;
+        var cY = me.y ;
 
         targetX = x ;
         targetY = y ;
 
 
-        let deltaX = targetX - cX ;
-        let deltaY = targetY - cY ;
+        var deltaX = targetX - cX ;
+        var deltaY = targetY - cY ;
 
-        let dx = deltaX/frames ;
-        let dy = deltaY/frames ;
+        var dx = deltaX/frames ;
+        var dy = deltaY/frames ;
 
         for(var i = 0 ; i<frames-1 ; i++)
         {
-            let smoothPrecent = (Math.cos(i/frames*Math.PI)-1)/-2;
+            var smoothPrecent = (Math.cos(i/frames*Math.PI)-1)/-2;
             xPath.push(cX+dx*smoothPrecent*frames);
             yPath.push(cY+dy*smoothPrecent*frames);
             rPath.push(r0+(Math.sin(Math.PI*2*(i/frames)))/8);
