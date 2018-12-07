@@ -15,7 +15,7 @@
         var w = 550 ;
         var h = 500 ;
 
-        w = Math.min(w,window.outerWidth,window.outerWidth);
+        w = Math.min(w,window.innerWidth,window.outerWidth!=0?window.outerWidth:w);
 
         var type = "WebGL";
         if(!PIXI.utils.isWebGLSupported()){
